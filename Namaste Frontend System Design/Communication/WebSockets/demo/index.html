@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #messages {
+            list-style: none;
+            padding: 0;
+            max-width: 500px;
+        }
+
+        #messages li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        input {
+            padding: 8px;
+            width: 300px;
+        }
+
+        button {
+            padding: 8px 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>💬 Simple Chat</h2>
+    <ul id="messages"></ul>
+    <form id="form">
+        <input id="input" placeholder="Type message..." autocompl ete="off" />
+        <button type="submit">Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const form = document.getElementById("form");
+        const input = document.getElementById("input");
+        const messages = document.getElementById("messages");
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const msg = input.value.trim();
+            if (!msg) return;
+            socket.emit("chat-message", msg);
+            input.value = "";
+        });
+        socket.on("chat-message", (msg) => {
+            const li = document.createElement("li");
+            li.textContent = msg;
+            messages.appendChild(li);
+            // auto scroll
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>
+
+</html>

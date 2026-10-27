@@ -1,4 +1,4 @@
-# Networking
+# Namaste Frontend System Design
 
 Understand the problem statement and then evaluate pros and cons of various approaches. Consider data, use case, size of data, security etc.
 

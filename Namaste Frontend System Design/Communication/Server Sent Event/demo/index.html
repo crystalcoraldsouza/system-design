@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>SSE Demo</title>
+</head>
+
+<body>
+    <h1>SSE Demo</h1>
+    <div id="sse-data"></div>
+    <script>
+        const eventSource = new EventSource("/sse");
+        const container = document.getElementById("sse-data");
+        eventSource.onmessage = (event) => {
+            console.log(event.data);
+            container.innerText = event.data;
+        };
+        eventSource.onerror = () => {
+            console.log("Connection lost");
+        };
+    </script>
+</body>
+
+</html>
